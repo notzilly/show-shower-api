@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -28,12 +29,14 @@ class ShowSeeder extends Seeder
         {
             $offset = 1;
             $thousandRecs = array_slice($records, $offset, 1000, true);
+            $now = Carbon::now();
 
             while(count($thousandRecs) > 0)
             {
                 foreach($thousandRecs as $index => $record)
                 {
                     $thousandRecs[$index]['ext_id'] = $record['id'];
+                    $thousandRecs[$index]['created_at'] = $now;
                     unset($thousandRecs[$index]['id']);
                 }
                 Log::debug('# in array: ' . count($thousandRecs));
@@ -41,8 +44,8 @@ class ShowSeeder extends Seeder
 
                 $offset += 1000;
                 $thousandRecs = array_slice($records, $offset, 1000, true);
+                Log::debug('# in array after loop: ' . count($thousandRecs));
             }
         });
-
     }
 }
