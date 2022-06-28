@@ -29,7 +29,7 @@ return new class extends Migration
             $table->decimal('imdb_score', 2, 1, true)->nullable();
             $table->unsignedMediumInteger('imdb_votes')->nullable();
             $table->decimal('tmdb_popularity', 7, 3, true)->nullable();
-            $table->decimal('tmdb_score', 2, 1, true)->nullable();
+            $table->decimal('tmdb_score', 5, 1, true)->nullable();
             $table->timestamps();
         });
     }
