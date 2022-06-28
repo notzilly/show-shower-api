@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Show;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/shows', function (Request $request) {
-    return 'Hello World';
+    return Show::all()->slice(50, 100);
 });

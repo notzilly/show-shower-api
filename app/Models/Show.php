@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-class Show
+use Illuminate\Database\Eloquent\Model;
+
+class Show extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -32,6 +34,8 @@ class Show
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'imdb_score' => 'float',
+        'tmdb_popularity' => 'float',
+        'tmdb_score' => 'float',
     ];
 }

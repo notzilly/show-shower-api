@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('shows', function (Blueprint $table) {
             $table->id();
-            $table->string('ext_id');
+            $table->string('ext_id')->unique();
             $table->string('title');
             $table->set('type', ['MOVIE', 'SHOW']);
             $table->text('description');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('runtime');
             $table->string('genres');
             $table->string('production_countries');
-            $table->unsignedTinyInteger('seasons')->nullable();
+            $table->unsignedTinyInteger('seasons')->default(0);
             $table->string('imdb_id')->nullable();
             $table->decimal('imdb_score', 2, 1, true)->nullable();
             $table->unsignedMediumInteger('imdb_votes')->nullable();
