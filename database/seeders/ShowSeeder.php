@@ -18,14 +18,32 @@ class ShowSeeder extends Seeder
      */
     public function run()
     {
-        $csv = Reader::createFromPath(Storage::path('db_data/netflix/titles.csv'), 'r');
-        $csv->setHeaderOffset(0);
+        $providers = [
+            'amazon',
+            'crunchyroll',
+            'darkmatter',
+            'disneyplus',
+            'hbomax',
+            'hulutv',
+            'netflix',
+            'paramounttv',
+            'rakutenviki',
+        ];
 
-        $records = iterator_to_array($csv->getRecords());
+        $records = [];
 
-        Log::debug('total # of records: ' . count($records));
+        foreach ($providers as $provider) {
+            $csv = Reader::createFromPath(Storage::path("db_data/$provider/titles.csv"), 'r');
+            $csv->setHeaderOffset(0);
+    
+            $records = array_merge(iterator_to_array($csv->getRecords()), $records);
+        }
 
-        DB::transaction(function() use ($records)
+        Log::info('Prepared # of records to insert in shows table: ' . count($records));
+
+        $inserted = 0;
+
+        DB::transaction(function() use ($records, &$inserted)
         {
             $offset = 1;
             $thousandRecs = array_slice($records, $offset, 1000, true);
@@ -39,13 +57,13 @@ class ShowSeeder extends Seeder
                     $thousandRecs[$index]['created_at'] = $now;
                     unset($thousandRecs[$index]['id']);
                 }
-                Log::debug('# in array: ' . count($thousandRecs));
-                Log::debug('# of inserts: ' . DB::table('shows')->insertOrIgnore($thousandRecs));
-
+                $inserted += DB::table('shows')->insertOrIgnore($thousandRecs);
+                
                 $offset += 1000;
                 $thousandRecs = array_slice($records, $offset, 1000, true);
-                Log::debug('# in array after loop: ' . count($thousandRecs));
             }
         });
+        
+        Log::info('Inserted # of records in shows table: ' . $inserted);
     }
 }
