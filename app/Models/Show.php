@@ -7,6 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 class Show extends Model
 {
     /**
+     * Indicates if the model's ID is auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * The data type of the auto-incrementing ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'string';
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['credits'];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -41,7 +62,7 @@ class Show extends Model
     ];
 
     /**
-     * Returns credits
+     * Returns credits of show
      */
     public function credits()
     {
