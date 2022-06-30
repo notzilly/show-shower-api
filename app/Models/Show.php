@@ -34,8 +34,17 @@ class Show extends Model
      * @var array<string, string>
      */
     protected $casts = [
+        'id' => 'string',
         'imdb_score' => 'float',
         'tmdb_popularity' => 'float',
         'tmdb_score' => 'float',
     ];
+
+    /**
+     * Returns credits
+     */
+    public function credits()
+    {
+        return $this->hasMany(Credit::class, 'title_id');
+    }
 }
