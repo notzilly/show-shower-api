@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('shows', function (Blueprint $table) {
-            $table->id();
-            $table->string('ext_id')->unique();
+            $table->string('id');
             $table->string('title');
             $table->set('type', ['MOVIE', 'SHOW']);
             $table->text('description');
@@ -31,6 +30,8 @@ return new class extends Migration
             $table->decimal('tmdb_popularity', 7, 3, true)->nullable();
             $table->decimal('tmdb_score', 5, 1, true)->nullable();
             $table->timestamps();
+
+            $table->primary('id');
         });
     }
 
