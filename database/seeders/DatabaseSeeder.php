@@ -16,6 +16,17 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             ShowSeeder::class,
-        ]);
+            CreditSeeder::class,
+        ], false, ['providers' => [
+            'amazon',
+            'crunchyroll',
+            'darkmatter',
+            'disneyplus',
+            'hbomax',
+            'hulutv',
+            'netflix',
+            'paramounttv',
+            'rakutenviki',
+        ]]);
     }
 }

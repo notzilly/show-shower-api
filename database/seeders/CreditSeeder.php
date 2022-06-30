@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use League\Csv\Reader;
 
-class ShowSeeder extends Seeder
+class CreditSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -21,13 +21,13 @@ class ShowSeeder extends Seeder
         $records = [];
 
         foreach ($providers as $provider) {
-            $csv = Reader::createFromPath(Storage::path("db_data/$provider/titles.csv"), 'r');
+            $csv = Reader::createFromPath(Storage::path("db_data/$provider/credits.csv"), 'r');
             $csv->setHeaderOffset(0);
     
             $records = array_merge(iterator_to_array($csv->getRecords()), $records);
         }
 
-        Log::info('Prepared # of records to insert in shows table: ' . count($records));
+        Log::info('Prepared # of records to insert in credits table: ' . count($records));
 
         $inserted = 0;
 
@@ -41,15 +41,18 @@ class ShowSeeder extends Seeder
             {
                 foreach($thousandRecs as $index => $record)
                 {
+                    $thousandRecs[$index]['id'] = $record['person_id'];
+                    $thousandRecs[$index]['title_id'] = $record['id'];
                     $thousandRecs[$index]['created_at'] = $now;
+                    unset($thousandRecs[$index]['person_id']);
                 }
-                $inserted += DB::table('shows')->insertOrIgnore($thousandRecs);
+                $inserted += DB::table('credits')->insertOrIgnore($thousandRecs);
                 
                 $offset += 1000;
                 $thousandRecs = array_slice($records, $offset, 1000, true);
             }
         });
         
-        Log::info('Inserted # of records in shows table: ' . $inserted);
+        Log::info('Inserted # of records in credits table: ' . $inserted);
     }
 }
