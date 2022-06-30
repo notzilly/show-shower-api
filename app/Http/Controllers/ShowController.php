@@ -14,7 +14,7 @@ class ShowController extends Controller
      */
     public function index()
     {
-        return Show::all()->slice(0, 50);
+        return Show::paginate(25);
     }
 
     // /**
