@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ShowController;
 use App\Models\Show;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/shows', function (Request $request) {
-    return Show::all()->slice(50, 100);
-});
+Route::apiResources([
+    'shows' => ShowController::class,
+]);
