@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Credit;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CreditController extends Controller
 {
     /**
      * Shows all credits
      * 
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function index()
     {
@@ -21,12 +21,21 @@ class CreditController extends Controller
      * Returns credit by its id
      * 
      * @param  string  $id
-     * @return Credit
+     * @return \Illuminate\Database\Eloquent\Collection
      * 
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @throws ModelNotFoundException
      */
     public function show($id)
     {
-        return Credit::where('id', $id)->get();
+        /**
+         * @var  \Illuminate\Database\Eloquent\Collection
+         */
+        $credits = Credit::where('id', (int)$id)->get();
+
+        if($credits->count())
+        {
+            return $credits;
+        }
+        throw new ModelNotFoundException();
     }
 }
