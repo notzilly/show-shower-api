@@ -1,8 +1,7 @@
 <?php
 
+use App\Http\Controllers\CreditController;
 use App\Http\Controllers\ShowController;
-use App\Models\Show;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +17,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResources([
     'shows' => ShowController::class,
+    'credits' => CreditController::class,
 ]);
