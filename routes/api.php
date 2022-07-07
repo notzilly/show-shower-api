@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\ShowController;
+use App\Http\Controllers\TokenController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('credits/{id}/characters', [CreditController::class, 'characters']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('credits/{id}/characters', [CreditController::class, 'characters']);
+    
+    Route::apiResources([
+        'shows' => ShowController::class,
+        'credits' => CreditController::class,
+    ]);
+});
 
-Route::apiResources([
-    'shows' => ShowController::class,
-    'credits' => CreditController::class,
-]);
+
+Route::post('/tokens/create', [TokenController::class, 'authenticate']);
