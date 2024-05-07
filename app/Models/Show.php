@@ -25,7 +25,7 @@ class Show extends Model
      *
      * @var array
      */
-    protected $with = ['credits'];
+    // protected $with = ['credits'];
 
     /**
      * The attributes that are mass assignable.
