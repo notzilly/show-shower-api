@@ -9,17 +9,17 @@ class ShowController extends Controller
 {
     /**
      * Shows all shows
-     * 
+     *
      * @return \Illuminate\Support\Collection
      */
     public function index()
     {
-        return Show::paginate(25);
+        return view('shows', ['shows' => Show::paginate(25)]);
     }
 
     // /**
     //  * Shows all shows
-    //  * 
+    //  *
     //  * @return \Illuminate\Support\Collection
     //  */
     // public function store()
@@ -29,20 +29,20 @@ class ShowController extends Controller
 
     /**
      * Returns show by its id
-     * 
+     *
      * @param  string  $id
      * @return Show
-     * 
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function show($id)
     {
-        return Show::findOrFail($id);
+        return view('show', ['show' => Show::findOrFail($id)]);
     }
 
     // /**
     //  * Shows all shows
-    //  * 
+    //  *
     //  * @return \Illuminate\Support\Collection
     //  */
     // public function update()
@@ -52,7 +52,7 @@ class ShowController extends Controller
 
     // /**
     //  * Shows all shows
-    //  * 
+    //  *
     //  * @return \Illuminate\Support\Collection
     //  */
     // public function destroy()
