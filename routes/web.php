@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\ShowController;
+use App\Livewire\ListShows;
+use App\Livewire\ShowShows;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/shows', [ShowController::class, 'index']);
-Route::get('/shows/{id}', [ShowController::class, 'show']);
+Route::get('/shows', ListShows::class);
+Route::get('/shows/{id}', ShowShows::class);
