@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\ImportShows;
 use App\Livewire\ListShows;
 use App\Livewire\ShowShows;
 use Illuminate\Support\Facades\Route;
@@ -16,4 +17,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/shows', ListShows::class);
+Route::get('/shows/import', ImportShows::class);
 Route::get('/shows/{id}', ShowShows::class);
