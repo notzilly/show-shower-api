@@ -15,14 +15,5 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('credits/{id}/characters', [CreditController::class, 'characters']);
-    
-    Route::apiResources([
-        'shows' => ShowController::class,
-        'credits' => CreditController::class,
-    ]);
-});
-
 
 Route::post('/tokens/create', [TokenController::class, 'authenticate']);
